@@ -1,4 +1,5 @@
 package com.example.servlet;
+import com.example.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,9 +14,10 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
-        req.setAttribute("name", "World");
-        req.getRequestDispatcher("mypage.jsp").forward(req, resp);
+        User user = (User) req.getSession().getAttribute("user");
+        String login = user.getLogin();
+        req.setAttribute("login", login);
+        req.getRequestDispatcher("main.jsp").forward(req, resp);
     }
 
 
